@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/ >
+		<title>Smoothed D3.js Radar Chart</title>
+
+		<!-- Google fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
+		<!-- D3.js -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+		
+		<style>
+			body {
+				font-family: 'Open Sans', sans-serif;
+				font-size: 11px;
+				font-weight: 300;
+				fill: #242424;
+				text-align: center;
+				text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+				cursor: default;
+			}
+			
+			.legend {
+				font-family: 'Raleway', sans-serif;
+				fill: hsl(0, 50%, 98%);
+			}
+			
+			.tooltip {
+				fill: #eeecec;
+			}
+		</style>
+	
+	</head>
+	<body style="background-image: url(/static/assets/img/index_bkg.jpg)">
+		
+		
+		<div class="header bg-primary pb-6">
+			<div class="container-fluid">
+			  <div class="header-body">
+				<div class="row align-items-center py-4">
+				  
+				</div>
+				<!-- Card stats -->
+				<div class="row">
+				  <div class="col-xl-3 col-md-6">
+					
+				  </div>
+				  <div class="col-xl-3 col-md-6">
+					
+				  </div>
+				  <div class="col-xl-3 col-md-6">
+					
+				  </div>
+				  <div class="col-xl-3 col-md-6">
+					
+				  </div>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		<div class="radarChart"></div>
+		<div class="legend">
+			<h1> Individual preferences for the movie! </h1>
+			<p style="color: #e9eeef"> This page showcases the affinity of all users to the selected movie. Users are represented on the circumference of the radar chart and the chart quantifies the affinity of movie, in percentage, towards each user. Moving radially outwards in the chart represents that the particular movie will be highly liked by the user. </p>
+		</div>
+
+		<script src="{{url_for('static', filename='radarChart.js')}}"></script>	
+		<script>
+    
+      
+			////////////////////////////////////////////////////////////// 
+			//////////////////////// Set-Up ////////////////////////////// 
+			////////////////////////////////////////////////////////////// 
+
+			var margin = {top: 100, right: 100, bottom: 100, left: 100},
+				width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right,
+				height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
+					
+			////////////////////////////////////////////////////////////// 
+			////////////////////////// Data ////////////////////////////// 
+			////////////////////////////////////////////////////////////// 
+			// Obtain data (as a list of dicts) from algorithm output
+			// Algo output should be as above
+			// data = csv reader
+			var data = [
+					  [//data1
+						{axis:"Sudarshan",value:1},
+						{axis:"Sanjeev",value:0.38},
+						{axis:"Pankaj",value:0.89},
+						{axis:"Chinmay",value:0.67},
+						{axis:"Ritu",value:0.22},
+						{axis:"Kritika",value:0.92},		
+					  ]
+					];
+			////////////////////////////////////////////////////////////// 
+			//////////////////// Draw the Chart ////////////////////////// 
+			////////////////////////////////////////////////////////////// 
+
+			var color = d3.scale.ordinal()
+				.range(["#EDC951","#CC333F","#00A0B0"]);
+				
+			var radarChartOptions = {
+			  w: width,
+			  h: height,
+			  margin: margin,
+			  maxValue: 0.5,
+			  levels: 5,
+			  roundStrokes: true,
+			  color: color
+			};
+			//Call function to draw the Radar chart
+			RadarChart(".radarChart", data, radarChartOptions);
+
+			//add legend with user names
+			var svg = d3.select('body')
+				.selectAll('svg')
+				.append('svg')
+				.attr("width", width+300)
+				.attr("height", height)
+
+			//Create the title for the legend
+			var text = svg.append("text")
+				.attr("class", "title")
+				.attr('transform', 'translate(90,0)') 
+				.attr("x", width - 70)
+				.attr("y", 10)
+				.attr("font-size", "12px")
+				.attr("fill", "#404040")
+				.text("Movie affinity for each user");
+
+			//Initiate Legend
+			var legend = svg.append("g")
+				.attr("class", "legend")
+				.attr("height", 100)
+				.attr("width", 200)
+				.attr('transform', 'translate(90,20)') 
+				;
+				//Create colour squares
+				legend.selectAll('rect')
+				  .data(data)
+				  .enter()
+				  .append("rect")
+				  .attr("x", width - 65)
+				  .attr("y", function(d, i){ return i * 20;})
+				  .attr("width", 10)
+				  .attr("height", 10)
+				  .style("fill", function(d, i){ return color(i);})
+				  ;
+				
+				  //create list of movie names
+				var movies = ["Fight Club"]
+				//Create text next to squares as movie names
+				legend.selectAll('text')
+				  .data(movies)
+				  .enter()
+				  .append("text")
+				  .attr("x", width - 52)
+				  .attr("y", function(d, i){ return i * 20 + 9;})
+				  .attr("font-size", "11px")
+				  .attr("fill", "#737373")
+				  .text(function(d) { return d; })
+				  ; 
+		</script>
+	</body>
+	<style>
+		.legend{
+			font-size: 20px;
+			z-index: 10;  
+			position: absolute; 
+			float: right;
+			right: 20;  
+			top: 0;
+			height: 500px;
+			width: 300px;
+			padding: 20px;
+			margin: 20px
+		}
+	</style>
+</html>
+

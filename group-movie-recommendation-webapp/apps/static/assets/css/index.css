@@ -1,0 +1,219 @@
+
+body{
+    
+    font-family: sans-serif;
+    color: rgb(230, 230, 230);
+}
+.container { 
+    width: 70%;
+    max-width: 1100px;
+    height: auto;
+    margin: 0 auto;
+    display:flexbox;
+    /* align items to center */
+    justify-content: center;
+    align-items: center;
+    overflow:hidden;
+}
+
+.group-table{
+    /* align items to center */
+    margin: 0 auto;
+    border:none;
+    /* font-family: sans-serif; */
+    /* border: 0.2px solid black; */
+    /* border-collapse: collapse; */
+   
+}
+
+
+.page-title{
+    text-align: center;
+    font-size: 11vmin;
+    /* font-family: sans-serif; */
+    font-weight: bold;
+    color: rgb(212, 212, 212);
+}
+
+
+
+.group_num_label_ques{
+    font-size: 8vmin;
+
+    /* Borders work begins */
+    border-top: grey 1px solid;
+    border-left: grey 1px solid;
+    border-right: grey 1px solid;
+    -moz-border-radius:  10px 0px 0 0px;
+    -webkit-border-radius: 10px 0px 0 0px;
+    border-radius: 10px 0px 0 0px ;
+    margin-bottom: 0;
+    padding: 1rem 1em  0 1rem;
+    /* borders work ends */
+    
+    font-weight:bold;
+    color: #160202"
+
+}
+
+.group_num_label{
+    text-align:right;
+    color:darkgrey;
+    font-size: 4vmin;
+    font-weight: bold;
+
+    /* Borders work begins */
+    border-bottom: grey 1px solid;
+    border-left: grey 1px solid;
+    border-right: grey 1px solid;
+
+    -moz-border-radius:  0px 0px 0 10px;
+    -webkit-border-radius: 0px 0px 0 10px;
+    border-radius: 0px 0px 0 10px ;
+    margin-top:0;
+    padding: 0.5rem 2em  0.3em;
+    /* borders work ends */
+}
+.group_num_td{
+     /* Borders work begins */
+     border-top: grey 1px solid;
+     border-bottom: grey 1px solid;
+     /* border-left: grey 1px solid; */
+     border-right: grey 1px solid;
+ 
+     -moz-border-radius:  0px 10px 10px 0px;
+     -webkit-border-radius: 0px 10px 10px 0px;
+     border-radius: 0px 10px 10px 0px ;
+     
+     /* borders work ends */
+    background-color:#fafafa;
+    
+
+     
+}
+
+.group_num_td input{
+    height: 15vmin;
+    width: 100px;
+    text-align: center;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: none;
+    background-color: #fafafa;
+    border-radius: 10px;
+    font-size: 7vmin;
+    font-weight:bold;
+    
+
+}
+
+
+.demographic_btn {
+    background-color: rgba(255, 255, 255, 0);
+    color: rgb(255, 255, 255);
+    border:1px solid rgb(0, 255, 0);
+    padding: 5vmin;
+    font-size: 5vmin;
+    display: block;
+    justify-content: center;
+    border-radius: 100px 100px 100px 100px;
+    /* left: 50%; */
+    margin: 10vh auto 0;
+    width: auto;
+    
+    
+}
+.demographic_btn:hover {
+    background-color: green;
+    color: white;
+    transition: all ease-in 0.1s;
+    cursor: pointer;
+
+}
+
+.demo_text{
+    font-size:2.5em;
+}
+
+/* CSS for demographic data */
+.user_label{
+    font-size: 1.2em;
+}
+
+.user_text{
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: none;
+    background-color: #fafafa;
+    border-radius: 10px;
+    font-size: 1.2em;
+    padding: 0.5em;
+    
+}
+
+.age_text{
+    max-width:80px;
+}
+
+.gender_selector{
+    border: 0px;
+    height: 1.2em;
+}
+
+.gender_selector label{
+    font-size: 1.2em;
+}
+
+/*scroll down indicator code begins*/
+.mouse{
+  
+    width: 1.4rem;
+    height: 3.75rem;
+    border: 2px solid rgba(0, 255, 0, 0.247);
+    border-radius:1em;
+    margin: 5vh  auto ; 
+    display: flex;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    
+}
+
+.mouse span{
+    width: .43rem;
+    height: 1.1rem;
+    background-color: rgba(0, 255, 0, 0.61); 
+    /* #00000099; */
+    display: block;
+    border-radius:.3rem;
+    margin: 30% auto;
+    animation: move-wheel 1.5s ease forwards infinite;
+}
+
+@keyframes move-wheel{
+    0%{
+        transform:translateY(0%);
+        opacity:0;
+    }25%{
+        opacity:1;
+    }
+    70%{
+        transform:translateY(153%);
+        opacity:1;
+    }80%{
+        opacity:0;
+         transform:translateY(153%);
+    }100%{
+        transform:translateY(0%);
+        opacity:0;
+    }
+}
+/*scroll down indicator code ends*/
+
+/*clientele gallery logo settings*/
+.clientele-gallery .e-gallery-image{
+      background-size: 80% 80% !important;
+      background-position: center center !important;
+      background-repeat: no-repeat;
+  }

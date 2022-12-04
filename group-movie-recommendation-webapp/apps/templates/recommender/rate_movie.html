@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Movie Ratings</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- Custom fonts for this template -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='/assets/css/style.css') }}">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+    <!-- Icons -->
+    <link rel="stylesheet" href="/static/assets/vendor/nucleo/css/nucleo.css" type="text/css">
+    <link rel="stylesheet" href="/static/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
+    <!-- Page plugins -->
+    <!-- Argon CSS -->
+    <link rel="stylesheet" href="/static/assets/css/argon.css?v=1.2.0" type="text/css">
+
+</head>
+
+<body style="background-image: url(/static/assets/img/index_bkg.jpg)">
+ 
+ 
+    <div>
+  <form action="{{ url_for('home_blueprint.recommend') }}" method="post"">
+    <div class="container-fluid" style="margin: 20px;">
+        {%for j in range (settings.movies|length)%}
+        <div class="card" >
+            <div class="row">
+              <div class="col-md-4  h-100">
+                <img src="{{settings.movies[j].poster_url}}" class="card-img" alt="..." style="max-width:100%">
+                <h5 style="position: center"> {{settings.movies[j].title}}</h5>
+              </div>
+              <div class="col-md-8  h-100">
+                <div class="card-body">
+                  <h5 class="card-title">Rate your movies</h5>
+
+                    {%for i in range(settings.people)%} 
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">{{settings.user_data["user_name_" ~ i].user_name}}</span>
+                      </div>
+                      <div class="inner-block">
+                        <input class="radio-custom-1" type="radio" id="person-{{ i }}-movie-{{ settings.movies[j].imdb_id }}-hated" value="Hated" style="visibility: hidden;" name="person-{{ i }}-movie-{{ settings.movies[j].imdb_id }}-choice">
+                        <label class="btn btn-light" for="person-{{ i }}-movie-{{ settings.movies[j].imdb_id }}-hated" > 👎 Hated It</label>
+                      </div>
+                      <div class="inner-block">
+                        <input class="radio-custom-2" type="radio"  id="person-{{ i }}-movie-{{ settings.movies[j].imdb_id }}-liked" value="Liked" style="visibility: hidden;" name="person-{{ i }}-movie-{{ settings.movies[j].imdb_id }}-choice">
+                        <label class="btn btn-light" for="person-{{ i }}-movie-{{ settings.movies[j].imdb_id }}-liked"> 👍 Liked It</label>
+                      </div>
+                      <div class="inner-block">
+                        <input class="radio-custom-3" type="radio"  id="person-{{ i }}-movie-{{ settings.movies[j].imdb_id }}-loved" value="Loved" style="visibility: hidden;" name="person-{{ i }}-movie-{{ settings.movies[j].imdb_id }}-choice">
+                        <label class="btn btn-light" for="person-{{ i }}-movie-{{ settings.movies[j].imdb_id }}-loved"> ❤️ Loved It</label>
+                      </div>
+                      <div class="inner-block">
+                        <input class="radio-custom-4" type="radio" id="person-{{ i }}-movie-{{ settings.movies[j].imdb_id }}-nowatch" value="NoWatch" style="visibility: hidden;" name="person-{{ i }}-movie-{{ settings.movies[j].imdb_id }}-choice">
+                        <label class="btn btn-light" for="person-{{ i }}-movie-{{ settings.movies[j].imdb_id }}-nowatch"> &#128528 Didn't Watch</label>
+                      </div>
+                     <!--- <select class="form-control" id="person-select-{{ i }}" name="person-select-{{ i }}">
+                       
+                        <option value="1">1</optionvalue="{{ o }}">
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="0">Didn't Watch</option">
+                      </select>-->
+                    </div>
+                    {%endfor%}
+                  
+                  <br/>
+                  
+                  <br/>
+
+                  <input type="hidden" id="people" name="people" value="{{settings.people}}" />
+                  <input type="hidden" id="movies" name="movies" value="{{settings.movies}}" />
+                  <input type="hidden" id="user_data" name="user_data" value="{{settings.user_data}}" />
+                </div>
+            </div>
+              </div>
+            </div>
+            {%endfor%}
+          </div>
+            <div class="row">
+              <div class="col-md-6">
+                <h3 style="color: #f8efef">Which method would you like to use to recommend movies? </h3>
+              </div>
+              <div class="col-md-3">
+                <input class="radio-model" type="radio" id="ml-model-mf" value="1" style="visibility: hidden;" name="method" value="ml-model-mf">
+                <label class="btn btn-light" for="ml-model-mf">Matrix Factorization</label>
+              </div>
+              <div class="col-md-3">
+                <input class="radio-model" type="radio" id="ml-model-gl" value="2" style="visibility: hidden;" name="method" value="ml-model-gl">
+                <label class="btn btn-light" for="ml-model-gl">G-Local K Method</label>
+              </div>
+            </div>
+          <div class ="col-md-12">
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Submit</button>
+          </div>
+        </form>
+      </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="static/assets/js/pace.min.js"></script>
+    <script src="/static/assets/js/argon.js?v=1.2.0"></script>
+
+</body>
+<style>
+.radio-custom-1:checked ~ label {
+  background-color: #ff0000;
+  color: #fff;
+}
+.radio-custom-2:checked ~ label {
+  background-color: #ffbb00;
+  color: #fff;
+}
+.radio-custom-3:checked ~ label {
+  background-color: #2ed32e;
+  color: #fff;
+}
+.radio-custom-4:checked ~ label {
+  background-color: #4d4d4f;
+  color: #fff;
+}
+.row{
+  margin: 10px;
+}
+.radio-model:checked ~ label{
+  background-color: #2f88c2;
+  color: #fff;
+}
+</style>
+</html>
