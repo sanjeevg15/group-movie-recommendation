@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Movie Recommendation System</title>
+    <link rel = "stylesheet" type="text/css" href = "/static/assets/css/index.css">
+    <script type = "application/javascript" src="/static/index.js"></script>
+</head>
+<body style="background-image: url(/static/assets/img/index_bkg.jpg)">
+    <div id = "container" class = "container">
+        <h1 class="page-title">Group Movie Recommendation</h1> 
+        <div class="input-container">
+            <table class="group-table">
+                <tr>
+                    <td class = "group_num_label_ques" ><span style="color: #cecece;"> How many people today?</span></span></td>
+                    <td rowspan="2" class="group_num_td"><input type="number" placeholder="02" min="2" max="15" id="group_num" value = "2"/></td>
+                </tr>
+                <tr>
+                    <td class="group_num_label" >Enter 2 - 15 people</td>
+                </tr>
+            </table>
+    
+            
+        </div>
+        <button id="demographic_btn" class="demographic_btn" onClick="user_data_fill()">Enter User Details</button>
+        <div id="mouse" class="mouse" style="display:none;"><span></span></div>
+        <div class="user_data_collector" id ="user_data_container"></div>
+    </div>
+    
+</body>
+</html>
